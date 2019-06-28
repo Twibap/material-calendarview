@@ -9,7 +9,7 @@ import org.threeten.bp.LocalDate;
 /**
  * An imputable representation of a day on a calendar, based on {@link LocalDate}.
  */
-public final class CalendarDay implements Parcelable {
+public final class CalendarDay implements Parcelable, Comparable<CalendarDay> {
 
   /**
    * Everything is based on this variable for {@link CalendarDay}.
@@ -183,4 +183,17 @@ public final class CalendarDay implements Parcelable {
       return new CalendarDay[size];
     }
   };
+
+  @Override
+  public int compareTo(CalendarDay other) {
+    int compareResultYear = Integer.compare(this.getYear(), other.getYear());
+    if (compareResultYear != 0)
+      return compareResultYear;
+
+    int compareResultMonth = Integer.compare(this.getMonth(), other.getMonth());
+    if (compareResultMonth != 0)
+      return compareResultMonth;
+
+    return Integer.compare(this.getDay(), other.getDay());
+  }
 }
